@@ -14,9 +14,12 @@ public class TileManager : MonoBehaviour
     public List<TileBase> tilesToUse;
     public List<TileBase> obstacleTiles;
     public TileBase grassTile;
+    public TileBase minigameTile;
     public List<int> tileProbablities;
+    public int maxWavesWithoutMinigames = 20;
 
     private Tilemap mTilemap;
+    private int mWavesWithoutMinigames = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,39 @@ public class TileManager : MonoBehaviour
         StartCoroutine("AddNewAndShiftTileStrips");
     }
 
+    private TileBase generateRandomTile(Vector3Int currentTileStripHead, int tileY)
+    {
+        TileBase randomTile = null;
+        
+        for (int i = 0; tileProbablities.Count > i; ++i)
+        {
+            if (Random.Range(0, tileProbablities[i]) == 0)
+            {
+                Vector3Int pastTilePosition = new Vector3Int(currentTileStripHead.x, 
+                    currentTileStripHead.y + (tileY * tileSize.y), 0);
+                TileBase pastTile = mTilemap.GetTile(pastTilePosition);
+
+                if (obstacleTiles.Contains(pastTile) && obstacleTiles.Contains(tilesToUse[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    randomTile = tilesToUse[i];
+                }
+                        
+                break;
+            }
+        }
+
+        if (randomTile == null)
+        {
+            randomTile = grassTile;
+        }
+
+        return randomTile;
+    }
+    
     private IEnumerator AddNewAndShiftTileStrips()
     {
         while (true)
@@ -38,35 +74,14 @@ public class TileManager : MonoBehaviour
 
             for(int y = 0; tileStripLength / tileSize.y > y; ++y)
             {
-                TileBase randomTile = null;
-
-                for (int i = 0; tileProbablities.Count > i; ++i)
+                if (mWavesWithoutMinigames < maxWavesWithoutMinigames)
                 {
-                    if (Random.Range(0, tileProbablities[i]) == 0)
-                    {
-                        Vector3Int pastTilePosition = new Vector3Int(currentTileStripHead.x, 
-                            currentTileStripHead.y + (y * tileSize.y), 0);
-                        TileBase pastTile = mTilemap.GetTile(pastTilePosition);
-
-                        if (obstacleTiles.Contains(pastTile) && obstacleTiles.Contains(tilesToUse[i]))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            randomTile = tilesToUse[i];
-                        }
-                        
-                        break;
-                    }
+                    pastTileStrip.Enqueue(generateRandomTile(currentTileStripHead, y));
                 }
-
-                if (randomTile == null)
+                else
                 {
-                    randomTile = grassTile;
+                    pastTileStrip.Enqueue(minigameTile);
                 }
-                
-                pastTileStrip.Enqueue(randomTile);
             }
         
             TileBase currentTile = null;
@@ -98,6 +113,8 @@ public class TileManager : MonoBehaviour
                 }
             }
 
+            ++mWavesWithoutMinigames;
+            
             yield return new WaitForSeconds(frameStripUpdateSpeedInSeconds);
         }
     }

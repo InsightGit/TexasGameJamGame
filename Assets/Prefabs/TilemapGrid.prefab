@@ -205,11 +205,12 @@ MonoBehaviour:
   tileStripLength: 60
   frameStripUpdateSpeedInSeconds: 1
   tilesToUse:
-  - {fileID: 11400000, guid: 5b05509bd86cd1dfd8761d56fd3a370c, type: 2}
   - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
   - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
   obstacleTiles:
   - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
   - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
   grassTile: {fileID: 11400000, guid: 3db9e2f46914f80c7a918ed808ff4bff, type: 2}
-  tileProbablities: 140000000500000005000000
+  minigameTile: {fileID: 11400000, guid: 5b05509bd86cd1dfd8761d56fd3a370c, type: 2}
+  tileProbablities: 0500000005000000
+  maxWavesWithoutMinigames: 20
