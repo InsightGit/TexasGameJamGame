@@ -60,12 +60,13 @@ public class TileManager : MonoBehaviour
             
             for (int y = 0; tileStripLength > y; ++y)
             {
-                TileBase currentTile = tileStripLine[y % tileSize.y];
+                int currentTileIndex = y / tileSize.y;
+                TileBase currentTile = tileStripLine[currentTileIndex];
 
                 for (int x = 0; tileSize.x > x; ++x)
                 {
-                    Vector3Int tilePosition = new Vector3Int(currentTileStripHead.x - (i * tileSize.x),
-                        currentTileStripHead.y + (y * tileSize.y), 0);
+                    Vector3Int tilePosition = new Vector3Int(currentTileStripHead.x - x,
+                        currentTileStripHead.y + y, 0);
                     
                     mTilemap.SetTile(tilePosition, currentTile);
                 }
