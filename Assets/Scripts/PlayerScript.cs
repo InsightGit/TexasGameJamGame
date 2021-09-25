@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour
 {
     public Vector2 tileSize = new Vector2(20 * 1.28f, 20 * 1.28f);
     public TileManager tileManager;
-    public float jumpingLengthSeconds = 0.5f;
+    public float jumpingLengthSeconds = 0.4f;
 
     private Vector2 mMovement;
     private bool mJumping = false;
@@ -23,22 +23,22 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TileManager.TileType currentTile = tileManager.getPlayerTile(transform.position);
-
-        switch (currentTile)
-        {
-            case TileManager.TileType.MINIGAME:
-                Debug.Log("Checkpoint Minigame time!");
-                break;
-            case TileManager.TileType.GRASS:
-                break;
-            case TileManager.TileType.OBSTACLE:
-                Debug.Log("Parent Minigame time!");
-                break;
-        }
-        
         if (!mJumping)
         {
+            TileManager.TileType currentTile = tileManager.getPlayerTile(transform.position);
+
+            switch (currentTile)
+            {
+                case TileManager.TileType.MINIGAME:
+                    Debug.Log("Checkpoint Minigame time!");
+                    break;
+                case TileManager.TileType.GRASS:
+                    break;
+                case TileManager.TileType.OBSTACLE:
+                    Debug.Log("Parent Minigame time!");
+                    break;
+            }
+            
             if (Input.GetButtonDown("Jump"))
             {
                 mJumping = true;
