@@ -6,6 +6,13 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
+    public enum TileType
+    {
+        MINIGAME,
+        GRASS,
+        OBSTACLE
+    }
+    
     public Vector3Int firstTileStripPosition;
     public Vector2Int tileSize = new Vector2Int(20, 20);
     public int numberOfTileStrips = 10;
@@ -28,6 +35,20 @@ public class TileManager : MonoBehaviour
         
         Assert.AreEqual(tilesToUse.Count, tileProbablities.Count);
 
+        for (int i = 0; numberOfTileStrips > i; ++i)
+        {
+            for (int y = 0; tileStripLength > y; ++y)
+            {
+                for (int x = 0; tileSize.x > x; ++x)
+                {
+                    Vector3Int tilePosition = new Vector3Int(firstTileStripPosition.x - (i * tileSize.x) - x, 
+                        firstTileStripPosition.y + y, 0);
+                    
+                    mTilemap.SetTile(tilePosition, grassTile);
+                }
+            }
+        }
+        
         StartCoroutine("AddNewAndShiftTileStrips");
     }
 
@@ -116,6 +137,25 @@ public class TileManager : MonoBehaviour
             ++mWavesWithoutMinigames;
             
             yield return new WaitForSeconds(frameStripUpdateSpeedInSeconds);
+        }
+    }
+
+    public TileType getPlayerTile(Vector3 playerPosition)
+    {
+        Vector3Int cellPosition = mTilemap.WorldToCell(playerPosition);
+        TileBase playerTile = mTilemap.GetTile(cellPosition);
+
+        if (playerTile == minigameTile)
+        {
+            return TileType.MINIGAME;
+        } 
+        else if (playerTile == grassTile)
+        {
+            return TileType.GRASS;
+        }
+        else
+        {
+            return TileType.OBSTACLE;
         }
     }
 }
