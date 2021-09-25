@@ -203,7 +203,7 @@ MonoBehaviour:
   tileSize: {x: 20, y: 20}
   numberOfTileStrips: 8
   tileStripLength: 60
-  frameStripUpdateSpeedInSeconds: 1
+  frameStripUpdateSpeedInSeconds: 0.5
   tilesToUse:
   - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
   - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
