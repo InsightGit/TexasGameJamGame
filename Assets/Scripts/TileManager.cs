@@ -12,6 +12,7 @@ public class TileManager : MonoBehaviour
     public int tileStripLength = 100;
     public float frameStripUpdateSpeedInSeconds = 1.0f;
     public List<TileBase> tilesToUse;
+    public List<TileBase> obstacleTiles;
     public TileBase grassTile;
     public List<int> tileProbablities;
 
@@ -43,7 +44,19 @@ public class TileManager : MonoBehaviour
                 {
                     if (Random.Range(0, tileProbablities[i]) == 0)
                     {
-                        randomTile = tilesToUse[i];
+                        Vector3Int pastTilePosition = new Vector3Int(currentTileStripHead.x, 
+                            currentTileStripHead.y + (y * tileSize.y), 0);
+                        TileBase pastTile = mTilemap.GetTile(pastTilePosition);
+
+                        if (obstacleTiles.Contains(pastTile) && obstacleTiles.Contains(tilesToUse[i]))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            randomTile = tilesToUse[i];
+                        }
+                        
                         break;
                     }
                 }
