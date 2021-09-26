@@ -19,7 +19,11 @@ public class PlayerScript : MonoBehaviour
     public float jumpingLengthSeconds = 0.8167f;
     public int maxObstacleHitsBeforeParentMinigame = 3;
 
-    public List<Sprite> checkpointMinigameSlides;
+    public List<Sprite> checkpoint0MinigameSlides;
+    public List<Sprite> checkpoint1MinigameSlides;
+    public List<AudioClip> checkpoint0MinigameAudioClips;
+    public List<AudioClip> checkpoint1MinigameAudioClips;
+    
     public List<Sprite> parentMinigameSlides;
     public List<Sprite> gameOverSlides;
     
@@ -78,8 +82,18 @@ public class PlayerScript : MonoBehaviour
                         }
                         else
                         {
-                            GameState.slideManagerTargetScene = checkpointMinigames[GameState.minigamesCompleted]; 
-                            GameState.slideManagerSlides = checkpointMinigameSlides;
+                            GameState.slideManagerTargetScene = checkpointMinigames[GameState.minigamesCompleted];
+
+                            if (GameState.minigamesCompleted == 0)
+                            {
+                                GameState.slideManagerAudioClips = checkpoint0MinigameAudioClips;
+                                GameState.slideManagerSlides = checkpoint0MinigameSlides;
+                            }
+                            else
+                            {
+                                GameState.slideManagerAudioClips = checkpoint1MinigameAudioClips;
+                                GameState.slideManagerSlides = checkpoint1MinigameSlides;
+                            }
                         }
                         
                         GameState.paused = true;
@@ -87,7 +101,7 @@ public class PlayerScript : MonoBehaviour
                     case TileManager.TileType.GRASS:
                         break;
                     case TileManager.TileType.OBSTACLE:
-                        ++mObstacleHits;
+                        /*++mObstacleHits;
 
                         parentEnemy.MoveCloser();
                         
@@ -122,10 +136,12 @@ public class PlayerScript : MonoBehaviour
                             
                             fadeTransitionManager.StartFadeOut();
 
+                            GameState.obstaclesHits = 0;
+                            
                             GameState.slideManagerTargetScene = parentMinigameScene;
                             GameState.slideManagerSlides = parentMinigameSlides;
                             GameState.paused = true;
-                        }
+                        }*/
                         break;
                 }
                 

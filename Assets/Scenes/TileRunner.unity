@@ -602,10 +602,18 @@ MonoBehaviour:
   tileManager: {fileID: 703916957}
   jumpingLengthSeconds: 0.8167
   maxObstacleHitsBeforeParentMinigame: 3
-  checkpointMinigameSlides:
-  - {fileID: 21300000, guid: abace7836c4c66586a9ea5aade539742, type: 3}
-  - {fileID: 21300000, guid: 2c00c9ae3a9af6951ba63042105e839c, type: 3}
-  - {fileID: 21300000, guid: 4f678a3c39dfea7e5b153c8d147bdd6d, type: 3}
+  checkpoint0MinigameSlides:
+  - {fileID: 21300000, guid: e5336c8301864ed4b8fa062fb04491c4, type: 3}
+  - {fileID: 21300000, guid: f1f5b295acb5ba94eb41694d739c6182, type: 3}
+  - {fileID: 21300000, guid: 8e9b4f6a45f863f428553d3367099b5a, type: 3}
+  checkpoint1MinigameSlides:
+  - {fileID: 21300000, guid: b0edf3835ed2d3e30bec69a43d76d916, type: 3}
+  - {fileID: 21300000, guid: d622497af7161107380cc0c8e6d85260, type: 3}
+  - {fileID: 21300000, guid: d8044a00f73c54bfc8e05a11bafb1cb3, type: 3}
+  checkpoint0MinigameAudioClips:
+  - {fileID: 8300000, guid: 6b0f25b35279057428878307569fbc9e, type: 3}
+  checkpoint1MinigameAudioClips:
+  - {fileID: 8300000, guid: c1e5400050c74085f896ef50c07a3ac7, type: 3}
   parentMinigameSlides:
   - {fileID: 21300000, guid: b0edf3835ed2d3e30bec69a43d76d916, type: 3}
   - {fileID: 21300000, guid: d622497af7161107380cc0c8e6d85260, type: 3}
