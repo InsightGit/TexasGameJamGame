@@ -24,7 +24,8 @@ public class WormAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.GetSiblingIndex() == 0)
+            transform.GetComponentInParent<AudioSource>().volume = (50 - Mathf.Min(50, Mathf.Abs(transform.position.x))) * .015f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

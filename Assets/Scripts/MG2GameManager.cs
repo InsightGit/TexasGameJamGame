@@ -57,6 +57,7 @@ public class MG2GameManager : MonoBehaviour
 
     IEnumerator gameplay ()
     {
+        Transform bkgd = GameObject.Find("ParentGameBackground").transform;
         yield return new WaitForSeconds(2);
         for (int speed = 200; speed >= 50; speed -= 25)
             for (int wall = 0; wall < 2; wall++)
@@ -65,6 +66,8 @@ public class MG2GameManager : MonoBehaviour
                 walls[wall].SetActive(true);
                 for (int i = 1; i <= Mathf.Max(100, speed); i++)
                 {
+                    bkgd.localScale += Vector3.one * .005f;
+                    bkgd.transform.position += Vector3.up * .01f;
                     walls[2].transform.localScale = new Vector3(5, 5, 1) * (50 + i / (Mathf.Max(100, speed) / 50f)) * .005f;
                     walls[wall].transform.localScale = new Vector3(5, 5, 1) * (50 + i / (Mathf.Max(100, speed) / 50f)) * .01f;
                     wallApproaches = Mathf.Max(100, speed) - i;

@@ -8,14 +8,16 @@ public class MG1PlayerMovement : MonoBehaviour
     public static Transform mainPlayer;
     public static int health = 15;
     public GameObject[] Attacks;
+    public AudioClip[] clips;
     Rigidbody2D rb;
     Transform healthBar;
     bool onFloor = true;
     bool startGame = false;
+    int pastHealth = 15;
 
     private void Start()
     {
-        health = 12;
+        health = 15;
         FindObjectOfType<FadeTransitionManager>().StartFadeIn();
         mainPlayer = transform;
         rb = transform.GetComponent<Rigidbody2D>();
@@ -55,10 +57,21 @@ public class MG1PlayerMovement : MonoBehaviour
             healthBar.transform.parent.GetChild(1).gameObject.SetActive(false);
             StartCoroutine(loadScene("MGBulletDodge"));
         }
+        if (pastHealth != health)
+        {
+            pastHealth = health;
+            GameObject.Find("HurtSound").GetComponent<AudioSource>().clip = clips[2];
+            GameObject.Find("HurtSound").GetComponent<AudioSource>().Play();
+        }
     }
 
     IEnumerator loadScene (string sceneName)
     {
+        if (sceneName == "MGBulletDodge")
+            GetComponent<AudioSource>().clip = clips[0];
+        else
+            GetComponent<AudioSource>().clip = clips[1];
+        GetComponent<AudioSource>().Play();
         FindObjectOfType<FadeTransitionManager>().StartFadeOut();
         while (!FindObjectOfType<FadeTransitionManager>().hasTransitionCompleted())
             yield return null;
