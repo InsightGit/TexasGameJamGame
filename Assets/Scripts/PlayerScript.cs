@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     public ParentScript parentEnemy;
     public String parentMinigameScene = "MGBulletDodge";
     public String slidesSceneName = "StorySlideScene";
+    public String gameOverSceneName = "TheEnd";
     public TileManager tileManager;
     
     public float jumpingLengthSeconds = 0.8167f;
@@ -20,6 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     public List<Sprite> checkpointMinigameSlides;
     public List<Sprite> parentMinigameSlides;
+    public List<Sprite> gameOverSlides;
     
     public List<String> checkpointMinigames;
 
@@ -60,11 +62,18 @@ public class PlayerScript : MonoBehaviour
                 {
                     case TileManager.TileType.MINIGAME:
                         fadeTransitionManager.StartFadeOut();
+
+                        if (GameState.minigamesCompleted >= checkpointMinigames.Count)
+                        {
+                            GameState.slideManagerTargetScene = gameOverSceneName;
+                            GameState.slideManagerSlides = gameOverSlides;
+                        }
+                        else
+                        {
+                            GameState.slideManagerTargetScene = checkpointMinigames[GameState.minigamesCompleted]; 
+                            GameState.slideManagerSlides = checkpointMinigameSlides;
+                        }
                         
-                        GameState.slideManagerTargetScene = checkpointMinigames[GameState.minigamesCompleted];
-                        
-                        
-                        GameState.slideManagerSlides = checkpointMinigameSlides;
                         GameState.paused = true;
                         break;
                     case TileManager.TileType.GRASS:
