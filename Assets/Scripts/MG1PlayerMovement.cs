@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MG1PlayerMovement : MonoBehaviour
 {
     public static Transform mainPlayer;
-    public static int health = 12;
+    public static int health = 15;
     public GameObject[] Attacks;
     Rigidbody2D rb;
     Transform healthBar;
@@ -48,7 +48,7 @@ public class MG1PlayerMovement : MonoBehaviour
         GetComponent<Animator>().SetBool("Moving", rb.velocity.x != 0);
         if (rb.velocity.x != 0)
             transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
-        healthBar.localPosition = new Vector3(0, health * .0833f);
+        healthBar.localPosition = new Vector3(0, health * .0667f);
         if (health <= 0 && health > -100)
         {
             health = -100;

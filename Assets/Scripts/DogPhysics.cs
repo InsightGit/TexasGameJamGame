@@ -27,7 +27,7 @@ public class DogPhysics : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity -= Vector2.right * 75f * Time.deltaTime;
         if (transform.position.x > 15)
             GetComponent<Rigidbody2D>().velocity -= Vector2.right * 15f * Time.deltaTime;
-        if (pet == 7 && gameObject.layer != 8)
+        if (pet == 4 && gameObject.layer != 8)
         {
             GetComponentInChildren<SpriteRenderer>().sprite = dogsHappy[dogNum];
             gameObject.layer = 8;
@@ -38,13 +38,13 @@ public class DogPhysics : MonoBehaviour
 
     public IEnumerator dogRandomness ()
     {
-        while (pet < 3)
+        while (pet < 4)
         {
             int waitTime = Random.Range(100, 10000);
             for (int i = 0; i < waitTime; i++)
             {
                 yield return null;
-                if (pet > 2)
+                if (pet > 3)
                     break;
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-30, 30), Random.Range(5, 25)) * 2;
