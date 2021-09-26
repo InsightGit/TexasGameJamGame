@@ -29,9 +29,6 @@ public class TileManager : MonoBehaviour
     public int numberOfTileStrips = 10;
     public int tileStripLength = 100;
     public float frameStripUpdateSpeedInSeconds = 1.0f;
-    public List<TileBase> tilesToUse;
-    public List<TileBase> obstacleTiles;
-    public TileBase minigameTile;
     public List<int> tileProbablities;
     public int transitionColorWaves = 5;
     public int maxWavesWithoutMinigames = 20;
@@ -45,11 +42,27 @@ public class TileManager : MonoBehaviour
 
     public TileBase blueForestTile;
     public TileBase redForestTile;
+
+    public TileBase blueObstacleTile;
+    public TileBase redObstacleTile;
+    
+    public TileBase blueMinigameTile;
+    public TileBase redMinigameTile;
     
     private ColorMode mColorMode = ColorMode.BLUEANDRED;
     private Tilemap mTilemap;
     private int mWavesWithoutMinigames = 0;
 
+    private bool isMinigameTile(TileBase tile)
+    {
+        return blueMinigameTile == tile || redMinigameTile == tile;
+    }
+    
+    private bool isObstacleTile(TileBase tile)
+    {
+        return blueObstacleTile == tile || redObstacleTile == tile;
+    }
+    
     TileBase getGrassTile(int linePosition)
     {
         int colorArrayIndex = -1;
@@ -105,8 +118,6 @@ public class TileManager : MonoBehaviour
                 mColorMode = ColorMode.INDIGOMAGENTATRANSITION;
                 break;
         }
-        
-        Assert.AreEqual(tilesToUse.Count, tileProbablities.Count);
 
         for (int i = 0; numberOfTileStrips > i; ++i)
         {
@@ -137,16 +148,23 @@ public class TileManager : MonoBehaviour
                     currentTileStripHead.y + (tileY * tileSize.y), 0);
                 TileBase pastTile = mTilemap.GetTile(pastTilePosition);
 
-                if (obstacleTiles.Contains(pastTile) && obstacleTiles.Contains(tilesToUse[i]))
+                if (isObstacleTile(pastTile))
                 {
                     continue;
                 }
                 else
                 {
-                    randomTile = tilesToUse[i];
+                    if (tileY > 2)
+                    {
+                        randomTile = blueObstacleTile;
+                    }
+                    else
+                    {
+                        randomTile = redObstacleTile;
+                    }
+
+                    break;
                 }
-                        
-                break;
             }
         }
 
@@ -192,6 +210,17 @@ public class TileManager : MonoBehaviour
                 }
                 else
                 {
+                    TileBase minigameTile;
+                    
+                    if (y > 2)
+                    {
+                        minigameTile = redMinigameTile;
+                    }
+                    else
+                    {
+                        minigameTile = blueMinigameTile;
+                    }
+                    
                     pastTileStrip.Enqueue(minigameTile);
                 }
             }
@@ -233,7 +262,7 @@ public class TileManager : MonoBehaviour
                     for (int x = 0; tileSize.x > x; ++x)
                     {
                         Vector3Int blueForestPosition = new Vector3Int(currentTileStripHead.x - (i * tileSize.x) - x, 
-                            currentTileStripHead.y + (numberOfTileStrips * tileSize.y) - y, 0);
+                            currentTileStripHead.y + tileStripLength - y, 0);
                         Vector3Int redForestPosition = new Vector3Int(currentTileStripHead.x - (i * tileSize.x) - x, 
                             currentTileStripHead.y - y, 0);
                     
@@ -254,11 +283,11 @@ public class TileManager : MonoBehaviour
         Vector3Int cellPosition = mTilemap.WorldToCell(playerPosition);
         TileBase playerTile = mTilemap.GetTile(cellPosition);
 
-        if (playerTile == minigameTile)
+        if (isMinigameTile(playerTile))
         {
             return TileType.MINIGAME;
         }
-        else if(obstacleTiles.Contains(playerTile))
+        else if(isObstacleTile(playerTile))
         {
             return TileType.OBSTACLE;
         }

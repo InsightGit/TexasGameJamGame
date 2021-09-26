@@ -201,17 +201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstTileStripPosition: {x: 50, y: 0, z: 0}
   tileSize: {x: 1, y: 1}
-  numberOfTileStrips: 10
+  numberOfTileStrips: 12
   tileStripLength: 5
   frameStripUpdateSpeedInSeconds: 0.5
-  tilesToUse:
-  - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
-  - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
-  obstacleTiles:
-  - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
-  - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
-  minigameTile: {fileID: 11400000, guid: 5b05509bd86cd1dfd8761d56fd3a370c, type: 2}
-  tileProbablities: 0500000005000000
+  tileProbablities: 03000000
   transitionColorWaves: 5
   maxWavesWithoutMinigames: 20
   blueRedTiles:
@@ -233,3 +226,7 @@ MonoBehaviour:
   purpleTile: {fileID: 11400000, guid: d941ca87f15c3309bbd718276548c24e, type: 2}
   blueForestTile: {fileID: 11400000, guid: 0f73dbbccea0523998ace0b6558b7e46, type: 2}
   redForestTile: {fileID: 11400000, guid: 68e288bc46849221184851048e0abb89, type: 2}
+  blueObstacleTile: {fileID: 11400000, guid: f1ef45f658561d181a66810d5548814b, type: 2}
+  redObstacleTile: {fileID: 11400000, guid: 1fc29b81175bc21b2be8ac6134bb0127, type: 2}
+  blueMinigameTile: {fileID: 11400000, guid: 0f73dbbccea0523998ace0b6558b7e46, type: 2}
+  redMinigameTile: {fileID: 11400000, guid: 68e288bc46849221184851048e0abb89, type: 2}
