@@ -622,9 +622,9 @@ MonoBehaviour:
   gameOverAudioClips:
   - {fileID: 8300000, guid: 72a2b3e55d09c36488349720c4c11ff4, type: 3}
   gameOverSlides:
-  - {fileID: 21300000, guid: abace7836c4c66586a9ea5aade539742, type: 3}
-  - {fileID: 21300000, guid: 2c00c9ae3a9af6951ba63042105e839c, type: 3}
-  - {fileID: 21300000, guid: 4f678a3c39dfea7e5b153c8d147bdd6d, type: 3}
+  - {fileID: 21300000, guid: 079b2747f67d74ba99f5642377f1e96b, type: 3}
+  - {fileID: 21300000, guid: de986c755d0dfa2ce81e112cc9b32348, type: 3}
+  - {fileID: 21300000, guid: 61348d7e04e0d4b56bd8916123ab2e30, type: 3}
   checkpointMinigames:
   - MGHoleInWall
   - MGDogAttack

@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameState
 {
     public static bool paused = false;
-    public static int minigamesCompleted = 0;
+    public static int minigamesCompleted = 2;
     public static int obstaclesHits = 0;
 
     // SlideManager-specific things
