@@ -11,11 +11,17 @@ public class PlayerScript : MonoBehaviour
 
     public FadeTransitionManager fadeTransitionManager;
     public ParentScript parentEnemy;
+    public String parentMinigameScene = "MGBulletDodge";
     public String slidesSceneName = "StorySlideScene";
     public TileManager tileManager;
     
     public float jumpingLengthSeconds = 0.8167f;
     public int maxObstacleHitsBeforeParentMinigame = 3;
+
+    public List<Sprite> checkpointMinigameSlides;
+    public List<Sprite> parentMinigameSlides;
+    
+    public List<String> checkpointMinigames;
 
     private Animator mAnimator;
     private int mCurrentTileStrip;
@@ -53,7 +59,13 @@ public class PlayerScript : MonoBehaviour
                 switch (currentTile)
                 {
                     case TileManager.TileType.MINIGAME:
-                        Debug.Log("Checkpoint Minigame time!");
+                        fadeTransitionManager.StartFadeOut();
+                        
+                        GameState.slideManagerTargetScene = checkpointMinigames[GameState.minigamesCompleted];
+                        
+                        
+                        GameState.slideManagerSlides = checkpointMinigameSlides;
+                        GameState.paused = true;
                         break;
                     case TileManager.TileType.GRASS:
                         break;
@@ -72,6 +84,8 @@ public class PlayerScript : MonoBehaviour
                             
                             fadeTransitionManager.StartFadeOut();
 
+                            GameState.slideManagerTargetScene = parentMinigameScene;
+                            GameState.slideManagerSlides = parentMinigameSlides;
                             GameState.paused = true;
                         }
                         break;
@@ -104,7 +118,8 @@ public class PlayerScript : MonoBehaviour
                 
                 transform.position -= new Vector3(0, tileSize.y, 0);
             }
-        } else if (GameState.paused && fadeTransitionManager.hasTransitionCompleted())
+        } 
+        else if (GameState.paused && fadeTransitionManager.hasTransitionCompleted())
         {
             GameState.obstaclesHits = mObstacleHits;
             

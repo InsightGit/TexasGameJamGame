@@ -596,10 +596,22 @@ MonoBehaviour:
   tileSize: {x: 1.28, y: 1.28}
   fadeTransitionManager: {fileID: 1360386442}
   parentEnemy: {fileID: 909663710}
+  parentMinigameScene: MGBulletDodge
   slidesSceneName: StorySlideScene
   tileManager: {fileID: 703916957}
   jumpingLengthSeconds: 0.8167
   maxObstacleHitsBeforeParentMinigame: 3
+  checkpointMinigameSlides:
+  - {fileID: 21300000, guid: abace7836c4c66586a9ea5aade539742, type: 3}
+  - {fileID: 21300000, guid: 2c00c9ae3a9af6951ba63042105e839c, type: 3}
+  - {fileID: 21300000, guid: 4f678a3c39dfea7e5b153c8d147bdd6d, type: 3}
+  parentMinigameSlides:
+  - {fileID: 21300000, guid: b0edf3835ed2d3e30bec69a43d76d916, type: 3}
+  - {fileID: 21300000, guid: d622497af7161107380cc0c8e6d85260, type: 3}
+  - {fileID: 21300000, guid: d8044a00f73c54bfc8e05a11bafb1cb3, type: 3}
+  checkpointMinigames:
+  - MGHoleInWall
+  - DogAttack
 --- !u!95 &1300129509
 Animator:
   serializedVersion: 3

@@ -8,10 +8,10 @@ public class SlideManager : MonoBehaviour
 {
     public FadeTransitionManager fadeTransitionManager;
     public float timeOnSlide = 2.0f;
-    public List<Sprite> slides;
     public String sceneNameToSwitchTo;
     
     private int mCurrentSlide = 0;
+    public List<Sprite> mSlides;
     private SpriteRenderer mSpriteRenderer;
 
     // Start is called before the first frame update
@@ -20,17 +20,18 @@ public class SlideManager : MonoBehaviour
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         mSpriteRenderer.enabled = true;
+        mSlides = GameState.slideManagerSlides;
 
         StartCoroutine("MainSlidesLoop");
     }
 
     private IEnumerator MainSlidesLoop()
     {
-        while (mCurrentSlide < slides.Count)
+        while (mCurrentSlide < mSlides.Count)
         {
             fadeTransitionManager.StartFadeIn();
 
-            mSpriteRenderer.sprite = slides[mCurrentSlide];
+            mSpriteRenderer.sprite = mSlides[mCurrentSlide];
 
             yield return new WaitUntil(() => fadeTransitionManager.hasTransitionCompleted());
 

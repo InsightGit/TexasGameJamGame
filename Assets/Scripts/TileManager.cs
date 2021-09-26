@@ -102,8 +102,6 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameState.minigamesCompleted = 2;
-        
         mTilemap = GetComponent<Tilemap>();
 
         switch (GameState.minigamesCompleted)
