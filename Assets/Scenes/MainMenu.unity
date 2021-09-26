@@ -239,8 +239,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67da9a8e0f5d75187aae0290d29aed7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playTargetSceneString: StorySlideScene
   tileRunnerSceneString: TileRunner
   fadeTransitionManager: {fileID: 471536940}
+  introAudioClips:
+  - {fileID: 8300000, guid: 86ef7bd0b9bba9b45b7cd23711d7127a, type: 3}
+  - {fileID: 8300000, guid: 60e2568c4413a7cdeaad17fda3601eb2, type: 3}
+  introSlides:
+  - {fileID: 21300000, guid: b7b43c5e3a3a3757a9aaa667ed2c4576, type: 3}
+  - {fileID: 21300000, guid: cd5c33892c305b074bd4ca35d273f229, type: 3}
+  - {fileID: 21300000, guid: 19d143496c7b74c479297bd73d45ac69, type: 3}
 --- !u!1 &432649859
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +406,7 @@ GameObject:
   - component: {fileID: 748917653}
   - component: {fileID: 748917652}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BackgroundImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,7 +451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: abace7836c4c66586a9ea5aade539742, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2d211754b4758bba8d42719049456b3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

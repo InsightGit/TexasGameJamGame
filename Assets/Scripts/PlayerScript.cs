@@ -25,12 +25,20 @@ public class PlayerScript : MonoBehaviour
     
     public List<String> checkpointMinigames;
 
+    public AudioSource musicAudioSource;
+    
+    public AudioClip jumpClip;
+    public AudioClip hurtClip;
+    public AudioClip deathClip;
+
+    public AudioClip warningMusicClip;
+
     private Animator mAnimator;
     private int mCurrentTileStrip;
     private Vector2 mMovement;
     private int mObstacleHits = 0;
     private bool mJumping = false;
-    private AudioSource mJumpAudioSource;
+    private AudioSource mSfxAudioSource;
     private TileManager.TileType mPastTileType = TileManager.TileType.GRASS;
 
     // Start is called before the first frame update
@@ -38,7 +46,7 @@ public class PlayerScript : MonoBehaviour
     {
         mAnimator = GetComponent<Animator>();
         mCurrentTileStrip = (tileManager.tileStripLength / tileManager.tileSize.y) / 2;
-        mJumpAudioSource = GetComponent<AudioSource>();
+        mSfxAudioSource = GetComponent<AudioSource>();
         mObstacleHits = GameState.obstaclesHits;
 
         for (int i = 0; mObstacleHits > i; ++i)
@@ -86,10 +94,31 @@ public class PlayerScript : MonoBehaviour
                         if (maxObstacleHitsBeforeParentMinigame > mObstacleHits)
                         {
                             Debug.Log("The parent is getting closer!");
+
+                            if (mObstacleHits + 1 >= maxObstacleHitsBeforeParentMinigame)
+                            {
+                                musicAudioSource.Stop();
+
+                                musicAudioSource.clip = warningMusicClip;
+                                
+                                musicAudioSource.Play();
+                            }
+                            
+                            mSfxAudioSource.Stop();
+                
+                            mSfxAudioSource.clip = hurtClip;
+                
+                            mSfxAudioSource.Play();
                         }
                         else
                         {
                             Debug.Log("Parent Minigame time!");
+                            
+                            mSfxAudioSource.Stop();
+                
+                            mSfxAudioSource.clip = deathClip;
+                
+                            mSfxAudioSource.Play();
                             
                             fadeTransitionManager.StartFadeOut();
 
@@ -110,7 +139,12 @@ public class PlayerScript : MonoBehaviour
                 transform.position += new Vector3(0, tileSize.y / 2, 0);
 
                 mAnimator.Play("PlayerJumpingAnimation");
-                mJumpAudioSource.Play();
+
+                mSfxAudioSource.Stop();
+                
+                mSfxAudioSource.clip = jumpClip;
+                
+                mSfxAudioSource.Play();
                 
                 StartCoroutine("endJumping");
             }

@@ -7,19 +7,25 @@ using UnityEngine.SceneManagement;
 public class SlideManager : MonoBehaviour
 {
     public FadeTransitionManager fadeTransitionManager;
-    public float timeOnSlide = 2.0f;
+    public float timeOnSlide = 5.0f;
 
+    private AudioSource mAudioSource;
+    private List<AudioClip> mSlideAudioClips;
     private int mCurrentSlide = 0;
-    public List<Sprite> mSlides;
+    private List<Sprite> mSlides;
     private SpriteRenderer mSpriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
+        mAudioSource = GetComponent<AudioSource>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         mSpriteRenderer.enabled = true;
         mSlides = GameState.slideManagerSlides;
+        mSlideAudioClips = GameState.slideManagerAudioClips;
+
+        GameState.slideManagerAudioClips = new List<AudioClip>();
 
         StartCoroutine("MainSlidesLoop");
     }
@@ -28,11 +34,24 @@ public class SlideManager : MonoBehaviour
     {
         while (mCurrentSlide < mSlides.Count)
         {
-            fadeTransitionManager.StartFadeIn();
+
+            if (mCurrentSlide != 0 || !GameState.slideManagerSkipFirstFadeIn)
+            {
+                fadeTransitionManager.StartFadeIn();    
+            }
 
             mSpriteRenderer.sprite = mSlides[mCurrentSlide];
 
             yield return new WaitUntil(() => fadeTransitionManager.hasTransitionCompleted());
+            
+            if (mCurrentSlide < mSlideAudioClips.Count)
+            {
+                mAudioSource.Stop();
+
+                mAudioSource.clip = mSlideAudioClips[mCurrentSlide];
+                
+                mAudioSource.Play();
+            }
 
             yield return new WaitForSeconds(timeOnSlide);
         
@@ -43,8 +62,12 @@ public class SlideManager : MonoBehaviour
             ++mCurrentSlide;
         }
 
+        mAudioSource.Stop();
+        
         SceneManager.LoadScene(GameState.slideManagerTargetScene);
 
+        GameState.slideManagerSkipFirstFadeIn = false;
+        
         StopCoroutine("MainSlidesLoop");
     }
 }

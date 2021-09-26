@@ -598,6 +598,7 @@ MonoBehaviour:
   parentEnemy: {fileID: 909663710}
   parentMinigameScene: MGBulletDodge
   slidesSceneName: StorySlideScene
+  gameOverSceneName: TheEnd
   tileManager: {fileID: 703916957}
   jumpingLengthSeconds: 0.8167
   maxObstacleHitsBeforeParentMinigame: 3
@@ -609,9 +610,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0edf3835ed2d3e30bec69a43d76d916, type: 3}
   - {fileID: 21300000, guid: d622497af7161107380cc0c8e6d85260, type: 3}
   - {fileID: 21300000, guid: d8044a00f73c54bfc8e05a11bafb1cb3, type: 3}
+  gameOverSlides: []
   checkpointMinigames:
   - MGHoleInWall
   - MGDogAttack
+  musicAudioSource: {fileID: 703916956}
+  jumpClip: {fileID: 8300000, guid: 44fca26357d534f498d68cf881e81781, type: 3}
+  hurtClip: {fileID: 8300000, guid: 1b3875c4195dbfc4abdbe860584ded22, type: 3}
+  deathClip: {fileID: 8300000, guid: 936bd9342b1659f458086836b0bd0561, type: 3}
+  warningMusicClip: {fileID: 8300000, guid: 5c17ac1aa6c369a4f9522e2eee96f4b2, type: 3}
 --- !u!95 &1300129509
 Animator:
   serializedVersion: 3

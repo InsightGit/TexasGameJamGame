@@ -6,8 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public String tileRunnerSceneString; 
+    public String playTargetSceneString = "StorySlideScene";
+    public String tileRunnerSceneString = "TileRunner";
     public FadeTransitionManager fadeTransitionManager;
+
+    public List<AudioClip> introAudioClips;
+    public List<Sprite> introSlides;
 
     private bool mFadeOutStarted = false;
 
@@ -16,7 +20,12 @@ public class MenuManager : MonoBehaviour
     {
         if (fadeTransitionManager.hasTransitionCompleted() && mFadeOutStarted)
         {
-            SceneManager.LoadScene(tileRunnerSceneString);
+            GameState.slideManagerAudioClips = introAudioClips;
+            GameState.slideManagerSlides = introSlides;
+            GameState.slideManagerTargetScene = tileRunnerSceneString;
+            GameState.slideManagerSkipFirstFadeIn = true;
+            
+            SceneManager.LoadScene(playTargetSceneString);
         }
     }
 

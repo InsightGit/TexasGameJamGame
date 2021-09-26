@@ -10,6 +10,8 @@ public class GameState
     public static int obstaclesHits = 0;
 
     // SlideManager-specific things
+    public static List<AudioClip> slideManagerAudioClips;
     public static List<Sprite> slideManagerSlides;
     public static String slideManagerTargetScene;
+    public static bool slideManagerSkipFirstFadeIn = false;
 }
