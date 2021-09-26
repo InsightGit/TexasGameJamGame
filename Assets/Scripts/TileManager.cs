@@ -212,11 +212,11 @@ public class TileManager : MonoBehaviour
                     
                     if (y > 2)
                     {
-                        minigameTile = redMinigameTile;
+                        minigameTile = blueMinigameTile;
                     }
                     else
                     {
-                        minigameTile = blueMinigameTile;
+                        minigameTile = redMinigameTile;
                     }
                     
                     pastTileStrip.Enqueue(minigameTile);
