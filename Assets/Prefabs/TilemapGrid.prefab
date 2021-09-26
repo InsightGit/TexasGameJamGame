@@ -206,7 +206,7 @@ MonoBehaviour:
   frameStripUpdateSpeedInSeconds: 0.5
   tileProbablities: 03000000
   transitionColorWaves: 5
-  maxWavesWithoutMinigames: 35
+  maxWavesWithoutMinigames: 50
   blueRedTiles:
   - {fileID: 11400000, guid: 63e920ad3bcc3864ba7a4e806beda13b, type: 2}
   - {fileID: 11400000, guid: ea03ade12e0176962b9e7f5a09a615aa, type: 2}

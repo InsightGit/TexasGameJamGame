@@ -140,8 +140,6 @@ public class PlayerScript : MonoBehaviour
                             
                             fadeTransitionManager.StartFadeOut();
 
-                            GameState.obstaclesHits = 0;
-
                             GameState.slideManagerAudioClips = parentMinigameAudioClips;
                             GameState.slideManagerTargetScene = parentMinigameScene;
                             GameState.slideManagerSlides = parentMinigameSlides;

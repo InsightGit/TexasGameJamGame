@@ -17,6 +17,8 @@ public class MG1PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        GameState.obstaclesHits = 0;
+        
         health = 15;
         FindObjectOfType<FadeTransitionManager>().StartFadeIn();
         mainPlayer = transform;
