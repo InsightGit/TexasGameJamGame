@@ -15,7 +15,7 @@ public class StickMovement : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<SpriteRenderer>().color = new Color(.5f, .5f, .5f, (Mathf.Max(5, Mathf.Min(10, MG2GameManager.wallApproaches)) - 5) * .2f);
+        transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (Mathf.Max(5, Mathf.Min(10, MG2GameManager.wallApproaches)) - 5) * .2f);
     }
 
     public void ramdomizePosition ()

@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class DogPhysics : MonoBehaviour
 {
+    public GameObject heartParticles;
+    public Sprite[] dogsAngry;
+    public Sprite[] dogsHappy;
+    int dogNum = 0;
     public int pet = 0;
     public int touching = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        dogNum = Random.Range(0, 5);
+        GetComponentInChildren<SpriteRenderer>().sprite = dogsAngry[dogNum];
         if (MG3GameManager.startGame)
             StartCoroutine(dogRandomness());
     }
@@ -21,8 +27,13 @@ public class DogPhysics : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity -= Vector2.right * 75f * Time.deltaTime;
         if (transform.position.x > 15)
             GetComponent<Rigidbody2D>().velocity -= Vector2.right * 15f * Time.deltaTime;
-        if (pet == 7)
+        if (pet == 7 && gameObject.layer != 8)
+        {
+            GetComponentInChildren<SpriteRenderer>().sprite = dogsHappy[dogNum];
             gameObject.layer = 8;
+            for (int i = 0; i < 8; i++)
+                displayHearts();
+        }
     }
 
     public IEnumerator dogRandomness ()
@@ -51,5 +62,10 @@ public class DogPhysics : MonoBehaviour
         touching++;
         yield return new WaitForSeconds(.1f);
         touching--;
+    }
+
+    public void displayHearts()
+    {
+        Destroy(Instantiate(heartParticles, transform.position, Quaternion.identity), 5);
     }
 }

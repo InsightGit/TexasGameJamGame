@@ -18,9 +18,9 @@ public class EnterHole : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (MG2GameManager.wallApproaches < 40 && collision.name == "Player")
+        if ((MG2GameManager.wallApproaches < 40 || MG2GameManager.wallApproaches == 78) && collision.name == "Player")
         {
-            collision.transform.GetComponent<SpriteRenderer>().sortingOrder = -10;
+            collision.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -10;
         }
     }
 }
