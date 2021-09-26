@@ -12,19 +12,25 @@ public class PlayerScript : MonoBehaviour
     public ParentScript parentEnemy;
     public TileManager tileManager;
     
-    public float jumpingLengthSeconds = 0.75f;
+    public float jumpingLengthSeconds = 0.8167f;
     public int maxObstacleHitsBeforeParentMinigame = 3;
 
+    private Animator mAnimator;
     private int mCurrentTileStrip;
     private Vector2 mMovement;
     private int mObstacleHits = 0;
     private bool mJumping = false;
+    private AudioSource mJumpAudioSource;
     private TileManager.TileType mPastTileType = TileManager.TileType.GRASS;
 
     // Start is called before the first frame update
     void Start()
     {
+        mAnimator = GetComponent<Animator>();
         mCurrentTileStrip = (tileManager.tileStripLength / tileManager.tileSize.y) / 2;
+        mJumpAudioSource = GetComponent<AudioSource>();
+        
+        mAnimator.Play("PlayerWalkingAnimation");
     }
 
     // Update is called once per frame
@@ -72,6 +78,9 @@ public class PlayerScript : MonoBehaviour
                 
                 transform.position += new Vector3(0, tileSize.y / 2, 0);
 
+                mAnimator.Play("PlayerJumpingAnimation");
+                mJumpAudioSource.Play();
+                
                 StartCoroutine("endJumping");
             }
             else if(Input.GetButtonDown("Binary Up") && mCurrentTileStrip > 0)
@@ -100,6 +109,8 @@ public class PlayerScript : MonoBehaviour
         transform.position -= new Vector3(0, tileSize.y / 2, 0);
         
         mJumping = false;
+        
+        mAnimator.Play("PlayerWalkingAnimation");
         
         StopCoroutine("endJumping");
     }
