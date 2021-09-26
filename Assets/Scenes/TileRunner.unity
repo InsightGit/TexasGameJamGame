@@ -801,6 +801,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fadebackground
       objectReference: {fileID: 0}
+    - target: {fileID: 6919447872709573112, guid: d2f36b1b8530e96beb67376e336cafed, type: 3}
+      propertyPath: transitionFrameLength
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6919447872709573115, guid: d2f36b1b8530e96beb67376e336cafed, type: 3}
       propertyPath: m_RootOrder
       value: 5

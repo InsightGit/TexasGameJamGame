@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerScript : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerScript : MonoBehaviour
 
     public FadeTransitionManager fadeTransitionManager;
     public ParentScript parentEnemy;
+    public String slidesSceneName = "StorySlideScene";
     public TileManager tileManager;
     
     public float jumpingLengthSeconds = 0.8167f;
@@ -98,7 +100,7 @@ public class PlayerScript : MonoBehaviour
             }
         } else if (RunnerGameState.paused && fadeTransitionManager.hasTransitionCompleted())
         {
-            //
+            SceneManager.LoadScene(slidesSceneName);
         }
     }
 
