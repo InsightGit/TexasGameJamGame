@@ -121,6 +121,7 @@ public class PlayerScript : MonoBehaviour
         } 
         else if (GameState.paused && fadeTransitionManager.hasTransitionCompleted())
         {
+            GameState.paused = false;
             GameState.obstaclesHits = mObstacleHits;
             
             SceneManager.LoadScene(slidesSceneName);
