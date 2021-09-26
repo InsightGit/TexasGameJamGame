@@ -49,7 +49,7 @@ public class PlayerScript : MonoBehaviour
     private TileManager.TileType mPastTileType = TileManager.TileType.GRASS;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mAnimator = GetComponent<Animator>();
         mCurrentTileStrip = (tileManager.tileStripLength / tileManager.tileSize.y) / 2;

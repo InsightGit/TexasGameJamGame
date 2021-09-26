@@ -11,7 +11,7 @@ public class FadeTransitionManager : MonoBehaviour
     private SpriteRenderer mSpriteRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         
