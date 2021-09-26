@@ -173,12 +173,16 @@ public class PlayerScript : MonoBehaviour
             {
                 --mCurrentTileStrip;
 
+                parentEnemy.SwitchUp();
+                
                 transform.position += new Vector3(0, tileSize.y, 0);
             } 
             else if (Input.GetButtonDown("Binary Down") && mCurrentTileStrip < 
                 ((tileManager.tileStripLength / tileManager.tileSize.y) - 2))
             {
                 ++mCurrentTileStrip;
+                
+                parentEnemy.SwitchDown();
                 
                 transform.position -= new Vector3(0, tileSize.y, 0);
             }

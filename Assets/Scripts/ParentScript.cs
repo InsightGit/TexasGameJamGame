@@ -22,6 +22,16 @@ public class ParentScript : MonoBehaviour
     {
         transform.position += new Vector3(player.tileSize.x, 0, 0);
     }
+
+    public void SwitchUp()
+    {
+        transform.position += new Vector3(0, player.tileSize.y, 0);
+    }
+    
+    public void SwitchDown()
+    {
+        transform.position -= new Vector3(0, player.tileSize.y, 0);
+    }
     
     // Update is called once per frame
     void Update()
