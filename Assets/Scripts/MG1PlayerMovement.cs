@@ -5,7 +5,7 @@ using UnityEngine;
 public class MG1PlayerMovement : MonoBehaviour
 {
     public static Transform mainPlayer;
-    public static int health = 8;
+    public static int health = 10;
     public GameObject[] Attacks;
     Rigidbody2D rb;
     Transform healthBar;
@@ -42,7 +42,7 @@ public class MG1PlayerMovement : MonoBehaviour
             rbVelocity += Vector2.up * 55;
         }
         rb.velocity = new Vector2((rbVelocity.x + rb.velocity.x) / 2, rbVelocity.y);
-        healthBar.localPosition = new Vector3(0, health * .125f);
+        healthBar.localPosition = new Vector3(0, health * .1f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -53,7 +53,7 @@ public class MG1PlayerMovement : MonoBehaviour
 
     IEnumerator gameplay ()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         Instantiate(Attacks[0]);
         yield return new WaitForSeconds(3);
         GameObject.Find("PlayerAnim").GetComponent<Animator>().SetBool("Attack", true);
