@@ -210,9 +210,9 @@ MonoBehaviour:
   obstacleTiles:
   - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
   - {fileID: 11400000, guid: f15436d8bb60df52db08111c493ad85e, type: 2}
-  grassTile: {fileID: 11400000, guid: 3db9e2f46914f80c7a918ed808ff4bff, type: 2}
   minigameTile: {fileID: 11400000, guid: 5b05509bd86cd1dfd8761d56fd3a370c, type: 2}
   tileProbablities: 0500000005000000
+  transitionColorWaves: 5
   maxWavesWithoutMinigames: 20
   blueRedTiles:
   - {fileID: 11400000, guid: 63e920ad3bcc3864ba7a4e806beda13b, type: 2}
@@ -231,3 +231,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 499ce0e4a979d259489c6b3841558a25, type: 2}
   - {fileID: 11400000, guid: 8f5055d49907f6738b62193b6ab9b83c, type: 2}
   purpleTile: {fileID: 11400000, guid: d941ca87f15c3309bbd718276548c24e, type: 2}
+  blueForestTile: {fileID: 11400000, guid: 0f73dbbccea0523998ace0b6558b7e46, type: 2}
+  redForestTile: {fileID: 11400000, guid: 68e288bc46849221184851048e0abb89, type: 2}
