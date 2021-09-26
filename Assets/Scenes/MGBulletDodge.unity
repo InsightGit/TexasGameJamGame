@@ -325,7 +325,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.32, y: 0.5}
+    oldSize: {x: 1.33, y: 0.5}
     newSize: {x: 1.32, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -374,7 +374,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9518a1a3179e7de45b6098cf2cf43336, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cca6df7afdf8db747a8087fb6b14828c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 128999727}
   - component: {fileID: 128999726}
   m_Layer: 0
-  m_Name: HEALTH
+  m_Name: TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time Left
+  m_text: Battle Time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1400,7 +1400,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cca6df7afdf8db747a8087fb6b14828c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9518a1a3179e7de45b6098cf2cf43336, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1449,7 +1449,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.33, y: 0.5}
+    oldSize: {x: 1.32, y: 0.5}
     newSize: {x: 1.33, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3385,7 +3385,7 @@ GameObject:
   - component: {fileID: 1727452751}
   - component: {fileID: 1727452750}
   m_Layer: 0
-  m_Name: HealthBar (1)
+  m_Name: TimeBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

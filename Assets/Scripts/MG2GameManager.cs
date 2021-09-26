@@ -70,6 +70,8 @@ public class MG2GameManager : MonoBehaviour
             {
                 transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 0;
                 walls[wall].SetActive(true);
+                if (speed != 200 || wall == 1)
+                    walls[wall].GetComponentInChildren<Animator>().SetBool("NewJump", true);
                 for (int i = 1; i <= Mathf.Max(100, speed); i++)
                 {
                     bkgd.localScale += Vector3.one * .005f;
@@ -98,6 +100,7 @@ public class MG2GameManager : MonoBehaviour
                     yield return new WaitForSeconds(5);
                 }
                 walls[wall].transform.GetChild(0).localPosition = new Vector3(Random.Range(-7f, 7f), Random.Range(-2, 3) * 1.75f);
+                walls[wall].GetComponentInChildren<Animator>().SetBool("NewJump", false);
                 walls[wall].SetActive(false);
                 foreach (StickMovement stick in FindObjectsOfType<StickMovement>())
                     stick.ramdomizePosition();
