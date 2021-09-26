@@ -31,6 +31,12 @@ public class PlayerScript : MonoBehaviour
         mAnimator = GetComponent<Animator>();
         mCurrentTileStrip = (tileManager.tileStripLength / tileManager.tileSize.y) / 2;
         mJumpAudioSource = GetComponent<AudioSource>();
+        mObstacleHits = GameState.obstaclesHits;
+
+        for (int i = 0; mObstacleHits > i; ++i)
+        {
+            parentEnemy.MoveCloser();
+        }
         
         mAnimator.Play("PlayerWalkingAnimation");
     }
@@ -38,7 +44,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!mJumping && !RunnerGameState.paused)
+        if (!mJumping && !GameState.paused)
         {
             TileManager.TileType currentTile = tileManager.getPlayerTile(transform.position);
 
@@ -66,7 +72,7 @@ public class PlayerScript : MonoBehaviour
                             
                             fadeTransitionManager.StartFadeOut();
 
-                            RunnerGameState.paused = true;
+                            GameState.paused = true;
                         }
                         break;
                 }
@@ -98,8 +104,10 @@ public class PlayerScript : MonoBehaviour
                 
                 transform.position -= new Vector3(0, tileSize.y, 0);
             }
-        } else if (RunnerGameState.paused && fadeTransitionManager.hasTransitionCompleted())
+        } else if (GameState.paused && fadeTransitionManager.hasTransitionCompleted())
         {
+            GameState.obstaclesHits = mObstacleHits;
+            
             SceneManager.LoadScene(slidesSceneName);
         }
     }

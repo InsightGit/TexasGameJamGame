@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -12,6 +14,15 @@ public class TileManager : MonoBehaviour
         GRASS,
         OBSTACLE
     }
+
+    public enum ColorMode
+    {
+        BLUEANDRED,
+        BLUEREDTRANSITION,
+        INDIGOANDMAGENTA,
+        INDIGOMAGENTATRANSITION,
+        PURPLE
+    }
     
     public Vector3Int firstTileStripPosition;
     public Vector2Int tileSize = new Vector2Int(20, 20);
@@ -20,18 +31,80 @@ public class TileManager : MonoBehaviour
     public float frameStripUpdateSpeedInSeconds = 1.0f;
     public List<TileBase> tilesToUse;
     public List<TileBase> obstacleTiles;
-    public TileBase grassTile;
     public TileBase minigameTile;
     public List<int> tileProbablities;
+    public int transitionColorWaves = 5;
     public int maxWavesWithoutMinigames = 20;
 
+
+    public List<TileBase> blueRedTiles;
+    public List<TileBase> blueRedTransitionTiles;
+    public List<TileBase> indigoMagentaTiles;
+    public List<TileBase> indigoMagentaTransitionTiles;
+    public TileBase purpleTile;
+
+    public TileBase blueForestTile;
+    public TileBase redForestTile;
+    
+    private ColorMode mColorMode = ColorMode.BLUEANDRED;
     private Tilemap mTilemap;
     private int mWavesWithoutMinigames = 0;
+
+    TileBase getGrassTile(int linePosition)
+    {
+        int colorArrayIndex = -1;
+
+        switch (linePosition)
+        {
+            case 0:
+            case 1:
+                colorArrayIndex = 2;
+                break;
+            case 2:
+                colorArrayIndex = 1;
+                break;
+            case 3:
+            case 4:
+                colorArrayIndex = 0;
+                break;
+        }
+        
+        switch (mColorMode)
+        {
+            case ColorMode.BLUEANDRED:
+                return blueRedTiles[colorArrayIndex];
+            case ColorMode.BLUEREDTRANSITION:
+                return blueRedTransitionTiles[colorArrayIndex];
+            case ColorMode.INDIGOANDMAGENTA:
+                return indigoMagentaTiles[colorArrayIndex];
+            case ColorMode.INDIGOMAGENTATRANSITION:
+                return indigoMagentaTransitionTiles[colorArrayIndex];
+            case ColorMode.PURPLE:
+                return purpleTile;
+        }
+
+        return null;
+    }
     
     // Start is called before the first frame update
     void Start()
     {
+        GameState.minigamesCompleted = 2;
+        
         mTilemap = GetComponent<Tilemap>();
+
+        switch (GameState.minigamesCompleted)
+        {
+            case 0:
+                mColorMode = ColorMode.BLUEANDRED;
+                break;
+            case 1:
+                mColorMode = ColorMode.BLUEREDTRANSITION;
+                break;
+            case 2:
+                mColorMode = ColorMode.INDIGOMAGENTATRANSITION;
+                break;
+        }
         
         Assert.AreEqual(tilesToUse.Count, tileProbablities.Count);
 
@@ -44,7 +117,7 @@ public class TileManager : MonoBehaviour
                     Vector3Int tilePosition = new Vector3Int(firstTileStripPosition.x - (i * tileSize.x) - x, 
                         firstTileStripPosition.y + y, 0);
                     
-                    mTilemap.SetTile(tilePosition, grassTile);
+                    mTilemap.SetTile(tilePosition, getGrassTile(y / tileSize.y));
                 }
             }
         }
@@ -79,7 +152,7 @@ public class TileManager : MonoBehaviour
 
         if (randomTile == null)
         {
-            randomTile = grassTile;
+            randomTile = getGrassTile(tileY);
         }
 
         return randomTile;
@@ -89,7 +162,7 @@ public class TileManager : MonoBehaviour
     {
         while (true)
         {
-            if (RunnerGameState.paused)
+            if (GameState.paused)
             {
                 StopCoroutine("AddNewAndShiftTileStrips");
             }
@@ -98,6 +171,19 @@ public class TileManager : MonoBehaviour
 
             Queue<TileBase> pastTileStrip = new Queue<TileBase>();
 
+            if (mWavesWithoutMinigames > transitionColorWaves)
+            {
+                switch (mColorMode)
+                {
+                    case ColorMode.BLUEREDTRANSITION:
+                        mColorMode = ColorMode.INDIGOANDMAGENTA;
+                        break;
+                    case ColorMode.INDIGOMAGENTATRANSITION:
+                        mColorMode = ColorMode.PURPLE;
+                        break;
+                }
+            }
+            
             for(int y = 0; tileStripLength / tileSize.y > y; ++y)
             {
                 if (mWavesWithoutMinigames < maxWavesWithoutMinigames)
@@ -139,6 +225,24 @@ public class TileManager : MonoBehaviour
                 }
             }
 
+            // Forest generation
+            for (int i = 0; numberOfTileStrips > i; ++i)
+            {
+                for (int y = 0; tileSize.y > y; ++y)
+                {
+                    for (int x = 0; tileSize.x > x; ++x)
+                    {
+                        Vector3Int blueForestPosition = new Vector3Int(currentTileStripHead.x - (i * tileSize.x) - x, 
+                            currentTileStripHead.y + (numberOfTileStrips * tileSize.y) - y, 0);
+                        Vector3Int redForestPosition = new Vector3Int(currentTileStripHead.x - (i * tileSize.x) - x, 
+                            currentTileStripHead.y - y, 0);
+                    
+                        mTilemap.SetTile(blueForestPosition, blueForestTile);
+                        mTilemap.SetTile(redForestPosition, redForestTile);
+                    }
+                }
+            }
+
             ++mWavesWithoutMinigames;
             
             yield return new WaitForSeconds(frameStripUpdateSpeedInSeconds);
@@ -153,14 +257,14 @@ public class TileManager : MonoBehaviour
         if (playerTile == minigameTile)
         {
             return TileType.MINIGAME;
-        } 
-        else if (playerTile == grassTile)
+        }
+        else if(obstacleTiles.Contains(playerTile))
         {
-            return TileType.GRASS;
+            return TileType.OBSTACLE;
         }
         else
         {
-            return TileType.OBSTACLE;
+            return TileType.GRASS;
         }
     }
 }
