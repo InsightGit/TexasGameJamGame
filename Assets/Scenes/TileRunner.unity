@@ -596,6 +596,7 @@ MonoBehaviour:
   tileSize: {x: 1.28, y: 1.28}
   fadeTransitionManager: {fileID: 1360386442}
   parentEnemy: {fileID: 909663710}
+  slidesSceneName: StorySlideScene
   tileManager: {fileID: 703916957}
   jumpingLengthSeconds: 0.8167
   maxObstacleHitsBeforeParentMinigame: 3
@@ -779,6 +780,30 @@ PrefabInstance:
     - target: {fileID: 4903606281620648837, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: tileLists.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: colorModeLists.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: colorModeLists.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: colorModeLists.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: colorModeLists.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903606282254520082, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
+      propertyPath: colorModeLists.Array.data[4]
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4903606282254520095, guid: e79315faa1dab9fe78345ace7ad7286e, type: 3}
       propertyPath: m_LocalPosition.x

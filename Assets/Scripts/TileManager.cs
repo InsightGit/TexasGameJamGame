@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -11,6 +13,15 @@ public class TileManager : MonoBehaviour
         MINIGAME,
         GRASS,
         OBSTACLE
+    }
+
+    public enum ColorMode
+    {
+        BLUEANDRED,
+        BLUEREDTRANSITION,
+        INDIGOANDMAGENTA,
+        INDIGOMAGENTATRANSITION,
+        PURPLE
     }
     
     public Vector3Int firstTileStripPosition;
@@ -23,10 +34,56 @@ public class TileManager : MonoBehaviour
     public TileBase grassTile;
     public TileBase minigameTile;
     public List<int> tileProbablities;
+    public int transitionColorWaves = 5;
     public int maxWavesWithoutMinigames = 20;
 
+
+    public List<TileBase> blueRedTiles;
+    public List<TileBase> blueRedTransitionTiles;
+    public List<TileBase> indigoMagentaTiles;
+    public List<TileBase> indigoMagentaTransitionTiles;
+    public TileBase purpleTile;
+
+    
+    private ColorMode mColorMode = ColorMode.BLUEANDRED;
     private Tilemap mTilemap;
     private int mWavesWithoutMinigames = 0;
+
+    TileBase getGrassTile(int linePosition)
+    {
+        int colorArrayIndex = -1;
+
+        switch (linePosition)
+        {
+            case 0:
+            case 1:
+                colorArrayIndex = 0;
+                break;
+            case 2:
+                colorArrayIndex = 1;
+                break;
+            case 3:
+            case 4:
+                colorArrayIndex = 2;
+                break;
+        }
+        
+        switch (mColorMode)
+        {
+            case ColorMode.BLUEANDRED:
+                return blueRedTiles[colorArrayIndex];
+            case ColorMode.BLUEREDTRANSITION:
+                return blueRedTransitionTiles[colorArrayIndex];
+            case ColorMode.INDIGOANDMAGENTA:
+                return indigoMagentaTiles[colorArrayIndex];
+            case ColorMode.INDIGOMAGENTATRANSITION:
+                return indigoMagentaTransitionTiles[colorArrayIndex];
+            case ColorMode.PURPLE:
+                return purpleTile;
+        }
+
+        return null;
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -79,7 +136,7 @@ public class TileManager : MonoBehaviour
 
         if (randomTile == null)
         {
-            randomTile = grassTile;
+            randomTile = getGrassTile(tileY);
         }
 
         return randomTile;
