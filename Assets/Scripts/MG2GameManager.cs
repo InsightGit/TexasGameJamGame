@@ -8,6 +8,7 @@ public class MG2GameManager : MonoBehaviour
     public static int wallApproaches = 50;
     public GameObject[] walls;
     public GameObject leafParticle;
+    public AudioClip[] clips;
     bool startGame = false;
     Rigidbody2D rb;
     bool onFloor = true;
@@ -49,6 +50,11 @@ public class MG2GameManager : MonoBehaviour
 
     IEnumerator loadScene(string sceneName)
     {
+        if (sceneName == "MGHoleInWall")
+            GetComponent<AudioSource>().clip = clips[0];
+        else
+            GetComponent<AudioSource>().clip = clips[1];
+        GetComponent<AudioSource>().Play();
         FindObjectOfType<FadeTransitionManager>().StartFadeOut();
         while (!FindObjectOfType<FadeTransitionManager>().hasTransitionCompleted())
             yield return null;

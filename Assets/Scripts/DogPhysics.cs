@@ -33,6 +33,8 @@ public class DogPhysics : MonoBehaviour
             gameObject.layer = 8;
             for (int i = 0; i < 8; i++)
                 displayHearts();
+            GetComponent<AudioSource>().pitch = Random.Range(.9f, 1.1f);
+            GetComponent<AudioSource>().Play();
         }
     }
 

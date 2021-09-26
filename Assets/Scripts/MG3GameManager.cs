@@ -9,6 +9,7 @@ public class MG3GameManager : MonoBehaviour
     public GameObject dog;
     bool dogColliding = false;
     public static bool startGame = false;
+    public AudioClip[] clips;
     bool petting = false;
     Rigidbody2D rb;
     int petNumber = 0;
@@ -60,6 +61,11 @@ public class MG3GameManager : MonoBehaviour
     {
         if (!transitioning)
         {
+            if (sceneName == "MGDogAttack")
+                GetComponent<AudioSource>().clip = clips[0];
+            else
+                GetComponent<AudioSource>().clip = clips[1];
+            GetComponent<AudioSource>().Play();
             transitioning = true;
             FindObjectOfType<FadeTransitionManager>().StartFadeOut();
             while (!FindObjectOfType<FadeTransitionManager>().hasTransitionCompleted())
