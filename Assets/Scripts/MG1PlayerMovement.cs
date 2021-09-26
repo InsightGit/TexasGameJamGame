@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MG1PlayerMovement : MonoBehaviour
 {
@@ -12,15 +13,15 @@ public class MG1PlayerMovement : MonoBehaviour
     bool onFloor = true;
     bool startGame = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        health = 10;
+        FindObjectOfType<FadeTransitionManager>().StartFadeIn();
         mainPlayer = transform;
         rb = transform.GetComponent<Rigidbody2D>();
         healthBar = GameObject.Find("HealthReduction").transform;
         GameObject.Find("RandomBox").transform.localPosition = new Vector2(Random.Range(-15, 20), -15);
     }
-
 
     // Update is called once per frame
     void Update()
@@ -38,17 +39,35 @@ public class MG1PlayerMovement : MonoBehaviour
             rbVelocity += Vector2.right * 25;
         if (Input.GetKey(KeyCode.Space) && onFloor)
         {
+            GetComponent<Animator>().SetTrigger("Jump");
             onFloor = false;
             rbVelocity += Vector2.up * 55;
         }
         rb.velocity = new Vector2((rbVelocity.x + rb.velocity.x) / 2, rbVelocity.y);
+        GetComponent<Animator>().SetBool("Moving", rb.velocity.x != 0);
+        if (rb.velocity.x != 0)
+            transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
         healthBar.localPosition = new Vector3(0, health * .1f);
+        if (health <= 0 && health > -100)
+            StartCoroutine(loadScene("MGBulletDodge"));
+    }
+
+    IEnumerator loadScene (string sceneName)
+    {
+        health = -100;
+        FindObjectOfType<FadeTransitionManager>().StartFadeOut();
+        while (!FindObjectOfType<FadeTransitionManager>().hasTransitionCompleted())
+            yield return null;
+        SceneManager.LoadScene(sceneName);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.name == "FloorBounds")
+        {
+            GetComponent<Animator>().ResetTrigger("Jump");
             onFloor = true;
+        }
     }
 
     IEnumerator gameplay ()
@@ -88,5 +107,7 @@ public class MG1PlayerMovement : MonoBehaviour
             if (i == 18)
                 GameObject.Find("PlayerAnim").GetComponent<Animator>().SetBool("Attack", true);
         }
+        yield return new WaitForSeconds(2);
+        StartCoroutine(loadScene("TileRunner"));
     }
 }
