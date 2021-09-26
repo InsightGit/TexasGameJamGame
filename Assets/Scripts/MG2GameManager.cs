@@ -7,6 +7,7 @@ public class MG2GameManager : MonoBehaviour
 {
     public static int wallApproaches = 50;
     public GameObject[] walls;
+    public GameObject leafParticle;
     bool startGame = false;
     Rigidbody2D rb;
     bool onFloor = true;
@@ -17,7 +18,7 @@ public class MG2GameManager : MonoBehaviour
         wallApproaches = 50;
         FindObjectOfType<FadeTransitionManager>().StartFadeIn();
         rb = transform.GetComponent<Rigidbody2D>();
-        walls[0].transform.GetChild(0).localPosition = new Vector3(Random.Range(-.4f, .4f), Random.Range(-2, 3) * .2f);
+        walls[0].transform.GetChild(0).localPosition = new Vector3(Random.Range(-7f, 7f), Random.Range(-2, 3) * 1.75f);
     }
 
     // Update is called once per frame
@@ -64,17 +65,18 @@ public class MG2GameManager : MonoBehaviour
                 walls[wall].SetActive(true);
                 for (int i = 1; i <= Mathf.Max(100, speed); i++)
                 {
-                    walls[wall].transform.localScale = new Vector3(91, 51, 1) * (50 + i / (Mathf.Max(100, speed) / 50f)) * .01f;
+                    walls[2].transform.localScale = new Vector3(5, 5, 1) * (50 + i / (Mathf.Max(100, speed) / 50f)) * .005f;
+                    walls[wall].transform.localScale = new Vector3(5, 5, 1) * (50 + i / (Mathf.Max(100, speed) / 50f)) * .01f;
                     wallApproaches = Mathf.Max(100, speed) - i;
                     if (speed == 50)
                         wallApproaches = 78;
-                    walls[wall].GetComponent<SpriteRenderer>().color = new Color(.5f, .5f, .5f, Mathf.Min(5, wallApproaches) * .2f);
+                    walls[wall].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, Mathf.Min(5, wallApproaches) * .2f);
                     walls[wall].transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, Mathf.Min(5, wallApproaches) * .2f);
                     yield return new WaitForSeconds(.025f);
                 }
                 if (transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder == 0)
                 {
-                    walls[wall].GetComponent<SpriteRenderer>().color = new Color(.5f, .5f, .5f, 1);
+                    walls[wall].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     walls[wall].transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     wallApproaches = 40;
                     StartCoroutine(loadScene("MGHoleInWall"));
@@ -86,7 +88,7 @@ public class MG2GameManager : MonoBehaviour
                     StartCoroutine(loadScene("TileRunner"));
                     yield return new WaitForSeconds(5);
                 }
-                walls[wall].transform.GetChild(0).localPosition = new Vector3(Random.Range(-.4f, .4f), Random.Range(-2, 3) * .2f);
+                walls[wall].transform.GetChild(0).localPosition = new Vector3(Random.Range(-7f, 7f), Random.Range(-2, 3) * 1.75f);
                 walls[wall].SetActive(false);
                 foreach (StickMovement stick in FindObjectsOfType<StickMovement>())
                     stick.ramdomizePosition();
@@ -100,5 +102,13 @@ public class MG2GameManager : MonoBehaviour
             GetComponent<Animator>().SetBool("Jumping", false);
             onFloor = true;
         }
+    }
+
+    public void showLeaves ()
+    {
+        if (walls[0].activeSelf)
+            Instantiate(leafParticle, walls[0].transform.GetChild(0).position, Quaternion.identity);
+        else
+            Instantiate(leafParticle, walls[1].transform.GetChild(0).position, Quaternion.identity);
     }
 }

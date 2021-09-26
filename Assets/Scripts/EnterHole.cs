@@ -20,6 +20,8 @@ public class EnterHole : MonoBehaviour
     {
         if ((MG2GameManager.wallApproaches < 40 || MG2GameManager.wallApproaches == 78) && collision.name == "Player")
         {
+            if (collision.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder != -10)
+                FindObjectOfType<MG2GameManager>().showLeaves();
             collision.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -10;
         }
     }
