@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     public ParentScript parentEnemy;
     public String parentMinigameScene = "MGBulletDodge";
     public String slidesSceneName = "StorySlideScene";
-    public String gameOverSceneName = "TheEnd";
+    public String gameOverSceneName = "TheEndScene";
     public TileManager tileManager;
     
     public float jumpingLengthSeconds = 0.8167f;
@@ -23,8 +23,11 @@ public class PlayerScript : MonoBehaviour
     public List<Sprite> checkpoint1MinigameSlides;
     public List<AudioClip> checkpoint0MinigameAudioClips;
     public List<AudioClip> checkpoint1MinigameAudioClips;
-    
+
+    public List<AudioClip> parentMinigameAudioClips;
     public List<Sprite> parentMinigameSlides;
+
+    public List<AudioClip> gameOverAudioClips;
     public List<Sprite> gameOverSlides;
     
     public List<String> checkpointMinigames;
@@ -77,6 +80,7 @@ public class PlayerScript : MonoBehaviour
 
                         if (GameState.minigamesCompleted >= checkpointMinigames.Count)
                         {
+                            GameState.slideManagerAudioClips = gameOverAudioClips;
                             GameState.slideManagerTargetScene = gameOverSceneName;
                             GameState.slideManagerSlides = gameOverSlides;
                         }
@@ -101,7 +105,7 @@ public class PlayerScript : MonoBehaviour
                     case TileManager.TileType.GRASS:
                         break;
                     case TileManager.TileType.OBSTACLE:
-                        /*++mObstacleHits;
+                        ++mObstacleHits;
 
                         parentEnemy.MoveCloser();
                         
@@ -137,11 +141,12 @@ public class PlayerScript : MonoBehaviour
                             fadeTransitionManager.StartFadeOut();
 
                             GameState.obstaclesHits = 0;
-                            
+
+                            GameState.slideManagerAudioClips = parentMinigameAudioClips;
                             GameState.slideManagerTargetScene = parentMinigameScene;
                             GameState.slideManagerSlides = parentMinigameSlides;
                             GameState.paused = true;
-                        }*/
+                        }
                         break;
                 }
                 
@@ -171,7 +176,7 @@ public class PlayerScript : MonoBehaviour
                 transform.position += new Vector3(0, tileSize.y, 0);
             } 
             else if (Input.GetButtonDown("Binary Down") && mCurrentTileStrip < 
-                ((tileManager.tileStripLength / tileManager.tileSize.y) - 1))
+                ((tileManager.tileStripLength / tileManager.tileSize.y) - 2))
             {
                 ++mCurrentTileStrip;
                 
