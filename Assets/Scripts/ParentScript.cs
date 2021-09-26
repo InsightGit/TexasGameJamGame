@@ -14,6 +14,8 @@ public class ParentScript : MonoBehaviour
     void Start()
     {
         mAnimator = GetComponent<Animator>();
+        
+        mAnimator.Play("ParentWalkingAnimation");
     }
 
     public void MoveCloser()
