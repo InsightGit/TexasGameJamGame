@@ -89,6 +89,11 @@ public class TileManager : MonoBehaviour
     {
         while (true)
         {
+            if (RunnerGameState.paused)
+            {
+                StopCoroutine("AddNewAndShiftTileStrips");
+            }
+            
             Vector3Int currentTileStripHead = firstTileStripPosition;
 
             Queue<TileBase> pastTileStrip = new Queue<TileBase>();
