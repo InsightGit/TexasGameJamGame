@@ -8,8 +8,7 @@ public class SlideManager : MonoBehaviour
 {
     public FadeTransitionManager fadeTransitionManager;
     public float timeOnSlide = 2.0f;
-    public String sceneNameToSwitchTo;
-    
+
     private int mCurrentSlide = 0;
     public List<Sprite> mSlides;
     private SpriteRenderer mSpriteRenderer;
@@ -44,7 +43,7 @@ public class SlideManager : MonoBehaviour
             ++mCurrentSlide;
         }
 
-        SceneManager.LoadScene(sceneNameToSwitchTo);
+        SceneManager.LoadScene(GameState.slideManagerTargetScene);
 
         StopCoroutine("MainSlidesLoop");
     }
