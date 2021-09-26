@@ -14,6 +14,7 @@ public class MG3GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FindObjectOfType<FadeTransitionManager>().StartFadeIn();
         rb = transform.GetComponent<Rigidbody2D>();
     }
 
