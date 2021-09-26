@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerScript : MonoBehaviour
 {
-    public Vector2 tileSize = new Vector2(20 * 1.28f, 20 * 1.28f);
+    public Vector2 tileSize = new Vector2(1.28f, 1.28f);
 
     public FadeTransitionManager fadeTransitionManager;
     public ParentScript parentEnemy;
@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!mJumping)
+        if (!mJumping && !RunnerGameState.paused)
         {
             TileManager.TileType currentTile = tileManager.getPlayerTile(transform.position);
 
@@ -57,6 +57,8 @@ public class PlayerScript : MonoBehaviour
                             Debug.Log("Parent Minigame time!");
                             
                             fadeTransitionManager.StartFadeOut();
+
+                            RunnerGameState.paused = true;
                         }
                         break;
                 }
@@ -85,6 +87,9 @@ public class PlayerScript : MonoBehaviour
                 
                 transform.position -= new Vector3(0, tileSize.y, 0);
             }
+        } else if (RunnerGameState.paused && fadeTransitionManager.hasTransitionCompleted())
+        {
+            //
         }
     }
 

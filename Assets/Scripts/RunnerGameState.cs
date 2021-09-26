@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class RunnerGameState
 {
-    public static bool paused;
+    public static bool paused = false;
 }

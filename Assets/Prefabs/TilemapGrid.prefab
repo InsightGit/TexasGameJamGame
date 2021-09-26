@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d1b4cf14795d857b490990c183eea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstTileStripPosition: {x: 100, y: 0, z: 0}
-  tileSize: {x: 20, y: 20}
-  numberOfTileStrips: 8
-  tileStripLength: 60
+  firstTileStripPosition: {x: 50, y: 0, z: 0}
+  tileSize: {x: 1, y: 1}
+  numberOfTileStrips: 10
+  tileStripLength: 5
   frameStripUpdateSpeedInSeconds: 0.5
   tilesToUse:
   - {fileID: 11400000, guid: c4238a3be0600f9c9b5452e06440bd4d, type: 2}
